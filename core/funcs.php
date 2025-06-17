@@ -20,10 +20,8 @@ function abort($code = 404)
     die;
 }
 
-
 function load($fillable = [])
 {
-
     $data = [];// пустой масив , будет результат перебора  получаемого масива
 
     foreach ($_POST as $key => $value) {  // перебор получаемого масива POST
