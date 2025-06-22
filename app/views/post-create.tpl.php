@@ -24,10 +24,10 @@
                                 <label for="title" class="form-label">Post title</label>
                                 <input name="title" type="text"
                                     class="form-control <?= isset($error['title']) ? 'is-invalid' : '' ?>" id="title"
-                                    placeholder="Post title">
+                                    placeholder="Post title" value="<?= htmlspecialchars($_POST['title'] ?? '') ?>">
                                 <?php if (isset($error['title'])): ?>
                                     <div class="invalid-feedback d-block">
-                                        <?= $error['title'] ?>
+                                        <?= htmlspecialchars($error['title']) ?>
                                     </div>
                                 <?php endif; ?>
                         </div>
@@ -35,10 +35,11 @@
                             <label for="excerpt" class="form-label">Excerpt</label>
                             <textarea name="excerpt"
                                 class="form-control <?= isset($error['excerpt']) ? 'is-invalid' : '' ?>" id="excerpt"
-                                rows="2" placeholder="Post excerpt"></textarea>
+                                rows="2"
+                                placeholder="Post excerpt"><?= htmlspecialchars($_POST['excerpt'] ?? '') ?></textarea>
                             <?php if (isset($error['excerpt'])): ?>
                                 <div class="invalid-feedback d-block">
-                                    <?= $error['excerpt'] ?>
+                                    <?= htmlspecialchars($error['excerpt']) ?>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -46,10 +47,11 @@
                             <label for="content" class="form-label">Content</label>
                             <textarea name="content"
                                 class="form-control <?= isset($error['content']) ? 'is-invalid' : '' ?>" id="content"
-                                rows="5" placeholder="Post content"></textarea>
+                                rows="5"
+                                placeholder="Post content"><?= htmlspecialchars($_POST['content'] ?? '') ?></textarea>
                             <?php if (isset($error['content'])): ?>
                                 <div class="invalid-feedback d-block">
-                                    <?= $error['content'] ?>
+                                    <?= htmlspecialchars($error['content']) ?>
                                 </div>
                             <?php endif; ?>
 
