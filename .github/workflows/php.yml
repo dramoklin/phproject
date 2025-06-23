@@ -1,0 +1,44 @@
+name: PHP Composer # Название пайплайна
+
+on:
+  push: # Триггеры выполнения  - При пуше кода в ветку main. При создании или обновлении пул-реквеста, который таргетит ветку main.
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions: # Разрешения Указывает, какие права имеет пайплайн. Здесь задано только чтение содержимого репозитория (contents: read), минимизирует риски безопасности  
+  contents: read
+
+jobs: # Задачи - Определяет задачу (job) с именем build, которая выполняется на виртуальной машине с последней версией Ubuntu  для проверка, установка зависимостей, тесты.
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4 # Клонирует репозиторий на виртуальную машину , Без этого шага пайплайн не получит доступа к файлам проекта (например, composer.json).
+    
+    - name: Setup PHP # Если твой проект требует конкретной версии (например, PHP 7.4 или 8.2), добавь этот шаг настройки PHP
+      uses: shivammathur/setup-php@v2
+      with:
+          php-version: '8.4' 
+          
+    - name: Validate composer.json and composer.lock # Запускает команду composer validate --strict, которая проверяет( Корректность синтаксиса файла composer.json. Соответствие composer.lock файлу composer.json. Отсутствие ошибок или устаревших зависимостей)Гарантирует, что конфигурация Composer валидна, чтобы избежать ошибок при установке зависимостей.
+      run: composer validate --strict
+
+    - name: Cache Composer packages # Кэширует папку vendor (где хранятся зависимости Composer), чтобы не скачивать их заново при каждом запуске пайплайна. Ускоряет выполнение пайплайна, так как установка зависимостей через Composer может быть медленной.
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install dependencies # Выполняет composer install, чтобы установить зависимости, указанные в composer.json и зафиксированные в composer.lock. Без этого шага проект не сможет запуститься, так как зависимости (например, фреймворк Laravel или библиотеки) не будут доступны.
+      run: composer install --prefer-dist --no-progress
+
+    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
+    # Docs: https://getcomposer.org/doc/articles/scripts.md
+
+    # - name: Run test suite
+    #   run: composer run-script test
