@@ -18,7 +18,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8">
-                        <p class="post-content"><?= $post ?></p>
+                        <p class="post-content"><?= h($post) ?></p>
                     </div>
                     <?php require "incs/sidebar.php" ?>
                 </div>

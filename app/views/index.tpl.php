@@ -24,9 +24,9 @@
                             <div class="card mb-3">
                                 <div style="background-color:rgba(219, 218, 218, 0.98);text-align:center;"
                                     class="card-body">
-                                    <h5 class="card-title"><a href="post?id=<?= $post['id'] ?>"> <?= $post['title'] ?></a>
+                                    <h5 class="card-title"><a href="post?id=<?= $post['id'] ?>"> <?= h($post['title']) ?></a>
                                     </h5>
-                                    <p class=" card-text"><?= $post['excerpt'] ?></p>
+                                    <p class=" card-text"><?= h($post['excerpt']) ?></p>
                                     <a href="post?id=<?= $post['id'] ?>">Детальніше</a>
                                 </div>
                             </div>

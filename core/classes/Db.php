@@ -1,13 +1,14 @@
 <?php
 
+use PhpParser\Node\Stmt\TryCatch;
 
-class Db
+class Db // класс для работы с базой данных
 {
-    private $connection;
+    private $connection; // для хранения соединения с базой данных
 
-    private $stmt;
+    private $stmt; // для хранения подготовленного запроса
 
-    private static $instance = null;
+    private static $instance = null; // для хранения экземпляра класса
 
     private function __construct()
     {
@@ -22,35 +23,41 @@ class Db
 
     }
 
-    public static function getInstance()
+    public static function getInstance() // метод для получения экземпляра класса
     {
-        if (self::$instance === null) {
-            self::$instance = new self();
+        if (self::$instance === null) { // проверка на существование экземпляра класса по принципу синглтона (для избежания создания нескольких экземпляров класса по одному и тому же соединению с базой данных для экономии ресурсов)
+            self::$instance = new self(); // создание экземпляра класса
         }
-        return self::$instance;
+        return self::$instance; // возвращает экземпляр класса
     }
 
-    public function getConnection(array $db_config)
+    public function getConnection(array $db_config) // метод для получения соединения с базой данных
     {
         $dsn = "mysql:host={$db_config['host']};dbname={$db_config['dbname']};charset={$db_config['charset']}";
         try {
             $this->connection = new PDO($dsn, $db_config['username'], $db_config['password'], $db_config['options']);
             return $this;
-        } catch (PDOException $e) {
+        } catch (PDOException $e) { // обработка ошибки соединения с базой данных
             //throw new Exception("Database connection failed: " . $e->getMessage());
-            abort(500);
+            abort(500); // вывод ошибки соединения с базой данных с пом
         }
     }
 
-    public function query($query, $params = [])
+    public function query($query, $params = []) // метод для выполнения запроса
     {
-        $this->stmt = $this->connection->prepare($query);
-        $this->stmt->execute($params);
-        return $this;
+
+        try { // обработка ошибки выполнения запроса
+            $this->stmt = $this->connection->prepare( $query ); //создание подготовленного запроса
+            $this->stmt->execute( $params );// выполнение запроса   
+        } catch (PDOException $e) { 
+            return false;
+        }
+        
+        return $this; // возвращает экземпляр класса
 
     }
 
-    public function findAll() // отримання всіх строк
+    public function findAll() // метод для получения всех строк
     {
         return $this->stmt->fetchAll();
 

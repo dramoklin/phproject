@@ -18,8 +18,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h1><?= $post['title']?> </h1>
-                    <p class="post-content"><?= $post['content'] ?></p>
+                    <h1><?= h($post['title'])?> </h1>
+                    <p class="post-content"><?= h($post['content']) ?></p>
                 </div>
             </div>
         </div>
