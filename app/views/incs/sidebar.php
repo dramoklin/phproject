@@ -2,17 +2,10 @@
 <div class="col-md-4">
     <h3>Recent posts</h3>
     <ul class="list-group">
-        <?php foreach ($recent_posts as $key => $rpost): ?>
-            <li class="list-group-item post-item" id="<?= $key ?>">
-                <a href="<?= $rpost['id'] ?>"><?= $rpost['title'] ?></a>
-                <button type="button" class="btn btn-sm btn-danger" onclick="hidePost(<?= $key ?>)">НЕ цікаво!</button>
+        <?php foreach ($recent_posts as $recent_post): ?>
+            <li class="list-group-item post-item">
+                <a href="posts?id=<?= $recent_post['id'] ?>"><?= $recent_post['title'] ?></a>
             </li>
         <?php endforeach; ?>
     </ul>
 </div>
-
-<script>
-    function hidePost(id) {
-        document.getElementById(id).style.display = 'none';
-    }
-</script>

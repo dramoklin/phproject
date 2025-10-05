@@ -37,3 +37,10 @@ main.main {
 .error-h3{
   text-align: center;
 }
+
+.KeyCRM-chatWindowContainer {
+    border: 5px solid #254785 !important; /* Зовнішня рамка для iframe */
+    width: 450px !important; /* Зміна ширини */
+    height: 700px !important; /* Зміна висоти */
+    border-radius: 20px !important; /* Закруглення кутів */
+}

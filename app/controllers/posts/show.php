@@ -1,5 +1,6 @@
 <?php
 
+$db_connect = \myfrm\App::get(\myfrm\Db::class);
 
 $id = (int)$_GET['id'] ?? 0 ;
 
@@ -8,4 +9,4 @@ $id = (int)$_GET['id'] ?? 0 ;
 
     $title = "Home::{$post['title']}";
 
-require_once VIEWS_PATH . '/post.tpl.php';
+require_once VIEWS_PATH . '/posts/show.tpl.php';

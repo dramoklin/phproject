@@ -1,1 +1,26 @@
+# Ignore vendor folder
 /vendor/
+
+# Ignore node_modules folder
+/node_modules/
+
+# Ignore logs folder
+/logs/
+
+# Ignore build output folder
+/build/
+
+# Ignore database files
+*.db
+
+# Ignore compiled files
+*.js
+*.css
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore IDE and editor files
+.idea/
+.vscode/
